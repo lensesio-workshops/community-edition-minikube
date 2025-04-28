@@ -1,0 +1,31 @@
+# lenses-db-init-job.yaml
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: lenses-db-init
+  namespace: postgres-system
+spec:
+  template:
+    spec:
+      containers:
+      - name: db-init
+        image: postgres:14
+        command:
+        - /bin/bash
+        - -c
+        - |
+          echo "Waiting for PostgreSQL to be ready..."
+          until PGPASSWORD=changeme psql -h postgres-postgresql -U postgres -d postgres -c '\l' &> /dev/null; do
+            echo "PostgreSQL is unavailable - sleeping 2s"
+            sleep 2
+          done
+          echo "PostgreSQL is up - creating databases and roles"
+          PGPASSWORD=changeme psql -h postgres-postgresql -U postgres -d postgres <<EOF
+          CREATE ROLE lenses_agent WITH LOGIN PASSWORD 'changeme';
+          CREATE DATABASE lenses_agent OWNER lenses_agent;
+          CREATE ROLE lenses_hq WITH LOGIN PASSWORD 'changeme';
+          CREATE DATABASE lenses_hq OWNER lenses_hq;
+          EOF
+          echo "Database initialization completed!"
+      restartPolicy: OnFailure
+  backoffLimit: 5
