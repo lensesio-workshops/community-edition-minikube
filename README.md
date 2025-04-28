@@ -40,8 +40,11 @@ kubectl port-forward -n lenses service/lenses-hq 8080:80
 9. Install the demo Kafka cluster. Note this includes Apache Kafka, Kafka Connect, and Schema Registry as well as simple synthetic data generators.
 ```
 kubectl apply -f https://raw.githubusercontent.com/lensesio-workshops/community-edition-minikube/refs/heads/main/demo-kafka/demo-kafka-namespace.yaml
+```
 kubectl apply -f https://raw.githubusercontent.com/lensesio-workshops/community-edition-minikube/refs/heads/main/demo-kafka/demo-kafka-pvc.yaml
+```
 kubectl apply -f https://raw.githubusercontent.com/lensesio-workshops/community-edition-minikube/refs/heads/main/demo-kafka/demo-kafka-deployment.yaml
+```
 kubectl apply -f https://raw.githubusercontent.com/lensesio-workshops/community-edition-minikube/refs/heads/main/demo-kafka/demo-kafka-services.yaml
 ```
 10. 
