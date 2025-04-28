@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demo-kafka
+  namespace: kafka
+  labels:
+    app: demo-kafka
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: demo-kafka
+  template:
+    metadata:
+      labels:
+        app: demo-kafka
+    spec:
+      containers:
+      - name: demo-kafka
+        image: lensesio/fast-data-dev:3.9.0
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: ADV_HOST
+          value: "demo-kafka"
+        - name: RUNNING_SAMPLEDATA
+          value: "1"
+        - name: RUNTESTS
+          value: "0"
+        - name: DISABLE
+          value: "debezium-mongodb,debezium-mysql,debezium-postgres,debezium-sqlserver,debezium-jdbc"
+        - name: KAFKA_LISTENERS
+          value: "PLAINTEXT://:9092,INTERNAL://:19092,CONTROLLER://:16062"
+        - name: KAFKA_ADVERTISED_LISTENERS
+          value: "PLAINTEXT://demo-kafka:9092,INTERNAL://demo-kafka.kafka.svc.cluster.local:19092"
+        - name: KAFKA_LISTENER_SECURITY_PROTOCOL_MAP
+          value: "INTERNAL:PLAINTEXT,CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT,SSL:SSL,SASL_PLAINTEXT:SASL_PLAINTEXT,SASL_SSL:SASL_SSL"
+        ports:
+        - containerPort: 9092
+          name: kafka
+        - containerPort: 8081
+          name: schema-reg
+        resources:
+          limits:
+            cpu: 1000m
+            memory: 2Gi
+          requests:
+            cpu: 500m
+            memory: 1Gi
+        volumeMounts:
+        - name: data-volume
+          mountPath: /data
+      volumes:
+      - name: data-volume
+        persistentVolumeClaim:
+          claimName: demo-kafka-data
