@@ -41,9 +41,12 @@ kubectl port-forward -n lenses service/lenses-hq 8080:80
 ```
 kubectl apply -f https://raw.githubusercontent.com/lensesio-workshops/community-edition-minikube/refs/heads/main/demo-kafka/demo-kafka-namespace.yaml
 ```
+```
 kubectl apply -f https://raw.githubusercontent.com/lensesio-workshops/community-edition-minikube/refs/heads/main/demo-kafka/demo-kafka-pvc.yaml
 ```
+```
 kubectl apply -f https://raw.githubusercontent.com/lensesio-workshops/community-edition-minikube/refs/heads/main/demo-kafka/demo-kafka-deployment.yaml
+```
 ```
 kubectl apply -f https://raw.githubusercontent.com/lensesio-workshops/community-edition-minikube/refs/heads/main/demo-kafka/demo-kafka-services.yaml
 ```
