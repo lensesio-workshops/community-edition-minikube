@@ -1,0 +1,18 @@
+# postgres-values.yaml
+global:
+  postgresql:
+    auth:
+      username: "admin"
+      password: "changeme"
+      postgresPassword: "changeme"
+
+primary:
+  persistence:
+    existingClaim: "postgres-data"
+
+auth:
+  database: postgres
+  username: admin
+  password: changeme
+  postgresPassword: changeme
+  enablePostgresUser: true
