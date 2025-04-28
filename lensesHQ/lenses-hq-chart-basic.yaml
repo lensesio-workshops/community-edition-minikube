@@ -14,7 +14,7 @@ rbacEnable: false
 namespaceScope: true
 
 # Lense HQ container port
-restPort: 9091
+restPort: 8080
 # Lenses HQ service port, service targets restPort
 servicePort: 80
 servicePortName: lenses-hq
@@ -40,7 +40,9 @@ lensesHq:
       - username: admin
         password: $2a$10$DPQYpxj4Y2iTWeuF1n.ItewXnbYXh5/E9lQwDJ/cI/.gBboW2Hodm # bcrypt("admin").
   http:
-    address: ":9091"
+    address: ":8080"
+    accessControlAllowOrigin:
+      - "http://localhost:8080"
     secureSessionCookies: false
   # Storage property has to be properly filled with Postgres database information
   storage:
