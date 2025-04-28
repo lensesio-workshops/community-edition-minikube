@@ -1,0 +1,62 @@
+resources:
+  requests:
+    cpu: 1
+    memory: 1Gi
+  limits:
+    cpu: 1
+    memory: 2Gi
+
+image:
+  repository: lensesio/lenses-hq:6.0
+  pullPolicy: Always
+
+rbacEnable: false
+namespaceScope: true
+
+# Lense HQ container port
+restPort: 9091
+# Lenses HQ service port, service targets restPort
+servicePort: 80
+servicePortName: lenses-hq
+
+# serviceAccount is the Service account to be used by Lenses to deploy apps
+serviceAccount:
+  create: false
+  name: default
+
+# Lenses service
+service:
+  enabled: true
+  type: ClusterIP
+  annotations: {}
+
+lensesHq:
+  agents:
+    address: ":10000"
+  auth:
+    administrators:
+     - "admin"
+    users:
+      - username: admin
+        password: $2a$10$DPQYpxj4Y2iTWeuF1n.ItewXnbYXh5/E9lQwDJ/cI/.gBboW2Hodm # bcrypt("admin").
+  http:
+    address: ":9091"
+    secureSessionCookies: false
+  # Storage property has to be properly filled with Postgres database information
+  storage:
+    postgres:
+      enabled: true
+      host: postgres-postgresql.postgres-system.svc.cluster.local
+      port: 5432
+      username: lenses_hq
+      database: lenses_hq
+      passwordSecret:
+        type: "createNew"
+        password: "changeme"
+  logger:
+    mode: "text"
+    level: "debug"
+  license:
+    referenceFromSecret: false
+    stringData: "license_key_2SFZ0BesCNu6NFv0-EOSIvY22ChSzNWXa5nSds2l4z3y7aBgRPKCVnaeMlS57hHNVboR2kKaQ8Mtv1LFt0MPBBACGhDT5If8PmTraUM5xXLz4MYv"
+    acceptEULA: true
