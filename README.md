@@ -24,4 +24,17 @@ helm install postgres bitnami/postgresql \
 ```
 kubectl apply -f https://raw.githubusercontent.com/lensesio-workshops/community-edition-minikube/refs/heads/main/postgres-setup/lenses-db-init-job.yaml
 ```
-5. 
+5. Create lenses namespace.
+```
+kubectl create namespace lenses
+```
+6. Install Lenses HQ with Helm
+```
+helm install lenses-hq lensesio/lenses-hq -n lenses -f https://raw.githubusercontent.com/lensesio-workshops/community-edition-minikube/refs/heads/main/lensesHQ/lenses-hq-chart-basic.yaml
+```
+7. The simplest way to access the HQ UI is to setup a port forward.
+```
+kubectl port-forward -n lenses service/lenses-hq 8080:80
+```
+8. Point your web browser to http://127.0.0.1:8080. Login with user name: admin and password: admin
+9. 
