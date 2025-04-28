@@ -1,7 +1,7 @@
 Pre-req's 
 
 Minikube installed
-Helm installed
+Helm installedhttps://github.com/lensesio-workshops/community-edition-minikube/blob/main/README.md
 Ability to run a shell script
 
 *Install and configure postgres*
@@ -37,4 +37,10 @@ helm install lenses-hq lensesio/lenses-hq -n lenses -f https://raw.githubusercon
 kubectl port-forward -n lenses service/lenses-hq 8080:80
 ```
 8. Point your web browser to http://127.0.0.1:8080. Login with user name: admin and password: admin
-9. 
+9. Install the demo Kafka cluster. Note this includes Apache Kafka, Kafka Connect, and Schema Registry as well as simple synthetic data generators.
+```kubectl apply -f https://raw.githubusercontent.com/lensesio-workshops/community-edition-minikube/refs/heads/main/demo-kafka/demo-kafka-namespace.yaml
+kubectl apply -f https://raw.githubusercontent.com/lensesio-workshops/community-edition-minikube/refs/heads/main/demo-kafka/demo-kafka-pvc.yaml
+kubectl apply -f https://raw.githubusercontent.com/lensesio-workshops/community-edition-minikube/refs/heads/main/demo-kafka/demo-kafka-deployment.yaml
+kubectl apply -f https://raw.githubusercontent.com/lensesio-workshops/community-edition-minikube/refs/heads/main/demo-kafka/demo-kafka-services.yaml
+```
+10. 
