@@ -1,3 +1,7 @@
+image:
+  repository: lensesio/lenses-agent
+  tag: 6.0.0
+  pullPolicy: IfNotPresent
 lensesAgent:
   # Postgres connection
   storage:
@@ -5,9 +9,20 @@ lensesAgent:
       enabled: true
       host: postgres-postgresql.postgres-system.svc.cluster.local
       port: 5432
-      username: lenses-agent
-      password: changeMe
-      database: lenses-agent
+      username: lenses_agent
+      password: changeme
+      database: lenses_agent
+  sql:
+    processorImage: hub.docker.com/r/lensesioextra/sql-processor/
+    processorImageTag: latest
+    mode: KUBERNETES
+    heap: 1024M
+    minHeap: 128M
+    memLimit: 1152M
+    memRequest: 128M
+    livenessInitialDelay: 60 seconds
+    rbacsEnable: true
+    namespaceScope: false
   hq:
     agentKey:
       secret:
@@ -36,19 +51,16 @@ lensesAgent:
           configuration:
             kafkaBootstrapServers:
               value:
-                - PLAINTEXT://demo-kafka.kafka.svc.cluster.local:9092
+                - PLAINTEXT://my-kafka.kafka.svc.cluster.local:9092
             protocol:
               value: PLAINTEXT
             # Metrics are strongly suggested for Kafka
             metricsType:
-      sql:
-        processorImage: hub.docker.com/r/lensesioextra/sql-processor/
-        processorImageTag: latest
-        mode: KUBERNETES
-        heap: 1024M
-        minHeap: 128M
-        memLimit: 1152M
-        memRequest: 128M
-        livenessInitialDelay: 60 seconds
-        rbacsEnable: true
-        namespaceScope: false
+      confluentSchemaRegistry:
+        - name: my-schema-registry
+          tags: ["tag1"]
+          version: 1      
+          configuration:
+            schemaRegistryUrls:
+              value:
+                - http://my-schema-registry.kafka.svc.cluster.local:8081
