@@ -1,8 +1,33 @@
 Pre-req's 
 
 Minikube installed
-Helm installedhttps://github.com/lensesio-workshops/community-edition-minikube/blob/main/README.md
-Ability to run a shell script
+
+Minikube will need to be run with this command at a minimum:
+```
+minikube start --cpus=6 --memory=12g
+```
+But if you have the resouces run it this way:
+```
+minikube start --cpus=8 --memory=16g
+```
+You may also consider increaseing the size of disk allocated to your VM if you are running minikube with one of the VM (non-docker) drivers.
+```
+minikube start --cpus=8 --memory=16g --disk-size=100GB
+```
+
+Helm installed
+
+You need to add the following Helm repositores:
+```
+helm repo add bitnami https://charts.bitnami.com/bitnami
+```
+```
+helm repo add lensesio https://helm.repo.lenses.io/
+```
+Then run the following command:
+```
+helm repo update
+```
 
 *Install and configure postgres*
 
@@ -78,5 +103,7 @@ But with your agent key. Once you have updated and saved your lenses-agent-value
 ```
 helm install lenses-agent lensesio/lenses-agent -n lenses -f ./lenses-agent-values.yaml
 ```
-
-11. 
+11. You can now go back to the Lenses HQ UI and now you should see your cluster.
+12. You may need to manually add your Schema Registry through the UI. If you do, the URL is ```http://my-schema-registry.kafka.svc.cluster.local:8081``` No auth.
+13. Now you can add data and topics to your heart's content. You can create SQL processors - they will run in your lenses namespace inside your cluster.
+14. If you have questions please email drew.oetzel.ext@lenses.io and I can hop on a call. 
