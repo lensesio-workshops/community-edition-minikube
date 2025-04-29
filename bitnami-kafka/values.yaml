@@ -7,7 +7,7 @@ global:
 ## Enable KRaft mode and disable Zookeeper
 kraft:
   enabled: true
-  controllerQuorumVoters: "0@kafka-controller-0.kafka-controller-headless.default.svc.cluster.local:9093"
+  controllerQuorumVoters: "0@kafka-controller-0.kafka-controller-headless.kafka.svc.cluster.local:9093"
 
 # Disable Zookeeper since we're using KRaft
 zookeeper:
