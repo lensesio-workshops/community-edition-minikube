@@ -50,5 +50,3 @@ lensesAgent:
         memLimit: 1152M
         memRequest: 128M
         livenessInitialDelay: 60 seconds
-        rbacsEnable: true
-        namespaceScope: false
