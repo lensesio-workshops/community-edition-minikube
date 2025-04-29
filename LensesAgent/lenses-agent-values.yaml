@@ -52,10 +52,3 @@ lensesAgent:
         livenessInitialDelay: 60 seconds
         rbacsEnable: true
         namespaceScope: false
-      append:
-        conf: |
-           lenses.kubernetes.namespaces = {
-            incluster = [
-            "lenses"
-            ]
-            }
