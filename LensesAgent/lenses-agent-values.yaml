@@ -41,6 +41,21 @@ lensesAgent:
               value: PLAINTEXT
             # Metrics are strongly suggested for Kafka
             metricsType:
-              value: JMX
-            metricsPort:
-              value: 9581
+      sql:
+        processorImage: hub.docker.com/r/lensesioextra/sql-processor/
+        processorImageTag: latest
+        mode: KUBERNETES
+        heap: 1024M
+        minHeap: 128M
+        memLimit: 1152M
+        memRequest: 128M
+        livenessInitialDelay: 60 seconds
+        rbacsEnable: true
+        namespaceScope: false
+     append:
+        conf: |
+          lenses.kubernetes.namespaces = {
+          incluster = [
+          "lenses"
+        ]
+      }      
