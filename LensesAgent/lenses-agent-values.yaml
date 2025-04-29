@@ -28,7 +28,7 @@ lensesAgent:
       secret:
         type: "createNew"
         name: "agentKey"
-        value: "agent_key_cHkT0iveoPP6cGTo_uL8C9IEV33SfayNL8VyobkswkwuVnb9C"
+        value: "agent_key_PLEASE INSERT YOUR AGENT KEY HERE"
   provision:
     path: /mnt/provision-secrets
     connections:
