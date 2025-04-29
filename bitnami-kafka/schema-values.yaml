@@ -1,0 +1,56 @@
+# Bitnami Schema Registry Helm chart values for Minikube
+
+## Schema Registry configuration
+schemaRegistry:
+  # Point to your Kafka installation
+  kafka:
+    bootstrapServers: my-kafka.kafka.svc.cluster.local:9092
+  
+  # Configuration properties
+  configurationOverrides:
+    "schema.compatibility.level": "BACKWARD"
+    "avro.compatibility.level": "BACKWARD"
+
+## Deployment options
+replicaCount: 1  # Single replica for Minikube
+
+# Resource limits suitable for Minikube
+resources:
+  requests:
+    memory: "256Mi"
+    cpu: "100m"
+  limits:
+    memory: "512Mi"
+    cpu: "200m"
+
+# Networking configuration
+service:
+  type: NodePort
+  nodePorts:
+    http: 31081  # Choose an available port
+
+# Storage configuration
+persistence:
+  enabled: true
+  size: 1Gi
+
+# Authentication - disabled for development
+auth:
+  enabled: false
+
+# Health check configuration
+livenessProbe:
+  enabled: true
+  initialDelaySeconds: 30
+  periodSeconds: 10
+  timeoutSeconds: 5
+  failureThreshold: 3
+  successThreshold: 1
+
+readinessProbe:
+  enabled: true
+  initialDelaySeconds: 10
+  periodSeconds: 10
+  timeoutSeconds: 5
+  failureThreshold: 6
+  successThreshold: 1
