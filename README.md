@@ -37,17 +37,20 @@ helm install lenses-hq lensesio/lenses-hq -n lenses -f https://raw.githubusercon
 kubectl port-forward -n lenses service/lenses-hq 8080:80
 ```
 8. Point your web browser to http://127.0.0.1:8080. Login with user name: admin and password: admin
-9. Install the demo Kafka cluster. Note this includes Apache Kafka, Kafka Connect, and Schema Registry as well as simple synthetic data generators.
+9. Install the demo Kafka cluster. For simplicity we are using the Bitnami Helm Chart Open Source Apache Kafka install. This will install an empty cluster that listens on the node port to make it easier to get data in from outside the cluster.
+
+First create the namespace.
 ```
-kubectl apply -f https://raw.githubusercontent.com/lensesio-workshops/community-edition-minikube/refs/heads/main/demo-kafka/demo-kafka-namespace.yaml
+kubectl apply -f https://raw.githubusercontent.com/lensesio-workshops/community-edition-minikube/refs/heads/main/bitnami-kafka/bitnami-kafka-namespace.yaml
 ```
+Then install Kafka with the Helm Chart.
 ```
-kubectl apply -f https://raw.githubusercontent.com/lensesio-workshops/community-edition-minikube/refs/heads/main/demo-kafka/demo-kafka-pvc.yaml
+helm install my-kafka bitnami/kafka -f https://raw.githubusercontent.com/lensesio-workshops/community-edition-minikube/refs/heads/main/bitnami-kafka/values.yaml -n kafka
 ```
-```
-kubectl apply -f https://raw.githubusercontent.com/lensesio-workshops/community-edition-minikube/refs/heads/main/demo-kafka/demo-kafka-deployment.yaml
-```
-```
-kubectl apply -f https://raw.githubusercontent.com/lensesio-workshops/community-edition-minikube/refs/heads/main/demo-kafka/demo-kafka-services.yaml
-```
-10. 
+10. Next up you will need to install the Lenses Agent. Before we can do that we need to obtain the Agent Key from Lenses HQ. As long as your port forward is still running you can login to HQ at http://127.0.0.1:8080 - user name: admin and password: admin.
+
+This procedure is explained in Lenses Docs: https://docs.lenses.io/latest/deployment/installation/helm/agent#configure-hq-connection-agent-key
+
+From Lenses HQ Environment's page click on the New Environment buttom. Fill out the form and then click Create Environment. Then Lenses will generate an Agent Key for you to use. 
+
+11. 
