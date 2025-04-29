@@ -47,10 +47,36 @@ Then install Kafka with the Helm Chart.
 ```
 helm install my-kafka bitnami/kafka -f https://raw.githubusercontent.com/lensesio-workshops/community-edition-minikube/refs/heads/main/bitnami-kafka/values.yaml -n kafka
 ```
+Next we need to install the Confluent Schema registry.
+```
+helm install my-schema-registry bitnami/schema-registry -f https://raw.githubusercontent.com/lensesio-workshops/community-edition-minikube/refs/heads/main/bitnami-kafka/schema-values.yaml -n kafka
+```
 10. Next up you will need to install the Lenses Agent. Before we can do that we need to obtain the Agent Key from Lenses HQ. As long as your port forward is still running you can login to HQ at http://127.0.0.1:8080 - user name: admin and password: admin.
 
 This procedure is explained in Lenses Docs: https://docs.lenses.io/latest/deployment/installation/helm/agent#configure-hq-connection-agent-key
 
-From Lenses HQ Environment's page click on the New Environment buttom. Fill out the form and then click Create Environment. Then Lenses will generate an Agent Key for you to use. 
+From Lenses HQ Environment's page click on the New Environment buttom. Fill out the form and then click Create Environment. Then Lenses will generate an Agent Key for you to use. Copy the key you will need to put it into the lenses-agent-values.yaml file located here: https://github.com/lensesio-workshops/community-edition-minikube/blob/main/LensesAgent/lenses-agent-values.yaml
+You should download a copy of that file and insert your agent key into it. Look for this part of the file:
+```
+hq:
+    agentKey:
+      secret:
+        type: "createNew"
+        name: "agentKey"
+        value: "agent_key_PLEASE INSERT YOUR AGENT KEY HERE"
+```
+Once you have updated the values.yaml file it should look something like this:
+```
+hq:
+    agentKey:
+      secret:
+        type: "createNew"
+        name: "agentKey"
+        value: "agent_key_cHkT0iveoPP6cGTo_uL8C9IEV33SfayNL8VyobkswkwuVnb9C"
+```
+But with your agent key. Once you have updated and saved your lenses-agent-values.yaml file you can apply the chart with this command:
+```
+helm install lenses-agent lensesio/lenses-agent -n lenses -f ./lenses-agent-values.yaml
+```
 
 11. 
