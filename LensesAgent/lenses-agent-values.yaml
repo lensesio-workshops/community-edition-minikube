@@ -1,0 +1,46 @@
+lensesAgent:
+  # Postgres connection
+  storage:
+    postgres:
+      enabled: true
+      host: postgres-postgresql.postgres-system.svc.cluster.local
+      port: 5432
+      username: lenses-agent
+      password: changeMe
+      database: lenses-agent
+  hq:
+    agentKey:
+      secret:
+        type: "createNew"
+        name: "agentKey"
+        value: "agent_key_cHkT0iveoPP6cGTo_uL8C9IEV33SfayNL8VyobkswkwuVnb9C"
+  provision:
+    path: /mnt/provision-secrets
+    connections:
+      lensesHq:
+        - name: lenses-hq
+          version: 1
+          tags: ['hq']
+          configuration:
+            server:
+              value: lenses-hq.lenses.svc.cluster.local
+            port:
+              value: 10000
+            agentKey:
+              value: ${LENSESHQ_AGENT_KEY}
+      kafka:
+        # There can only be one Kafka cluster at a time
+        - name: kafka
+          version: 1
+          tags: ['staging', 'pseudo-data-only']
+          configuration:
+            kafkaBootstrapServers:
+              value:
+                - PLAINTEXT://demo-kafka.kafka.svc.cluster.local:9092
+            protocol:
+              value: PLAINTEXT
+            # Metrics are strongly suggested for Kafka
+            metricsType:
+              value: JMX
+            metricsPort:
+              value: 9581
