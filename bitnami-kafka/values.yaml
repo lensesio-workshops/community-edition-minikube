@@ -40,18 +40,32 @@ service:
 # Default listeners configuration for KRaft mode
 listeners:
   client:
+    name: PLAINTEXT
     protocol: PLAINTEXT
+    containerPort: 9092
   controller:
+    name: CONTROLLER
     protocol: PLAINTEXT
+    containerPort: 9093
   interbroker:
+    name: INTERNAL
     protocol: PLAINTEXT
+    containerPort: 9094
 
 # Disable authentication for simplicity in dev environment
 auth:
   clientProtocol: plaintext
   interBrokerProtocol: plaintext
+  sasl:
+    enabled: false
+    jaas:
+      clientUsers: []
+      interBrokerUser: ""
   tls:
     enabled: false
+  zookeeper:
+    user: ""
+    password: ""
 
 # Configuration suitable for development
 configurationOverrides:
@@ -60,6 +74,10 @@ configurationOverrides:
   "transaction.state.log.min.isr": 1 # Set to 1 for single-broker
   "log.retention.hours": 24 # Reduced log retention for dev environment
   "num.partitions": 3 # Default number of partitions for topics
+  "security.inter.broker.protocol": PLAINTEXT
+  "sasl.enabled.mechanisms": ""
+  "sasl.mechanism.inter.broker.protocol": PLAINTEXT
+  "allow.everyone.if.no.acl.found": "true"
 
 # Disable JMX exporter for simplicity
 metrics:
@@ -67,3 +85,6 @@ metrics:
     enabled: false
   kafka:
     enabled: false
+
+# Disable auto-creation of topics
+allowAutoTopicCreation: true
