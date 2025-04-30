@@ -17,7 +17,17 @@ lensesAgent:
       secret:
         type: "createNew"
         name: "agentKey"
-        value: "YOUR_AGENT_KEY_HERE"
+        value: "agent_key_Insert_Your_Agent_Key_Here"
+  sql:
+        processorImage: hub.docker.com/r/lensesioextra/sql-processor/
+        processorImageTag: latest
+        mode: KUBERNETES
+        heap: 1024M
+        minHeap: 128M
+        memLimit: 1152M
+        memRequest: 128M
+        livenessInitialDelay: 60 seconds
+        namespace: lenses
   provision:
     path: /mnt/provision-secrets
     connections:
