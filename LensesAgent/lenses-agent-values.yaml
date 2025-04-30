@@ -12,23 +12,12 @@ lensesAgent:
       username: lenses_agent
       password: changeme
       database: lenses_agent
-  sql:
-    processorImage: hub.docker.com/r/lensesioextra/sql-processor/
-    processorImageTag: latest
-    mode: KUBERNETES
-    heap: 1024M
-    minHeap: 128M
-    memLimit: 1152M
-    memRequest: 128M
-    livenessInitialDelay: 60 seconds
-    rbacsEnable: true
-    namespaceScope: false
   hq:
     agentKey:
       secret:
         type: "createNew"
         name: "agentKey"
-        value: "agent_key_PLEASE INSERT YOUR AGENT KEY HERE"
+        value: "YOUR_AGENT_KEY_HERE"
   provision:
     path: /mnt/provision-secrets
     connections:
@@ -54,12 +43,11 @@ lensesAgent:
                 - PLAINTEXT://my-kafka.kafka.svc.cluster.local:9092
             protocol:
               value: PLAINTEXT
-            # Metrics are strongly suggested for Kafka
-            metricsType:
       confluentSchemaRegistry:
-        - name: my-schema-registry
-          tags: ["tag1"]
-          version: 1      
+        # There can only be one schema registry at a time
+        - name: schema-registry
+          version: 1
+          tags: ['staging']
           configuration:
             schemaRegistryUrls:
               value:
