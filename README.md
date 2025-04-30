@@ -29,7 +29,7 @@ Then run the following command:
 helm repo update
 ```
 
-*Install and configure postgres*
+# Install and configure postgres
 
 1. create namespace for postgres
 ```
@@ -45,6 +45,18 @@ helm install postgres bitnami/postgresql \
   --namespace postgres-system \
   --values https://raw.githubusercontent.com/lensesio-workshops/community-edition-minikube/refs/heads/main/postgres-setup/postgres-values.yaml
 ```
+You can test to make sure the databases were created correctly by running the following commands:
+
+Start a temporary pod to connect to PostgreSQL
+kubectl run psql-client -n postgres-system --rm -it --image=postgres:14 -- bash
+
+Inside the pod, connect to PostgreSQL
+PGPASSWORD=changeme psql -h postgres-postgresql -U admin -d postgres
+
+Check databases and roles
+\l
+\du
+
 4. Create the HQ and Lenses Agent databases in postgres
 ```
 kubectl apply -f https://raw.githubusercontent.com/lensesio-workshops/community-edition-minikube/refs/heads/main/postgres-setup/lenses-db-init-job.yaml
