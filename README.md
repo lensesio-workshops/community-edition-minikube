@@ -62,6 +62,8 @@ Check databases and roles
 \du
 ```
 
+# Install and Connect to Lenses HQ
+
 4. Create the HQ and Lenses Agent databases in postgres
 ```
 kubectl apply -f https://raw.githubusercontent.com/lensesio-workshops/community-edition-minikube/refs/heads/main/postgres-setup/lenses-db-init-job.yaml
@@ -81,6 +83,8 @@ kubectl port-forward -n lenses service/lenses-hq 8080:80
 8. Point your web browser to http://127.0.0.1:8080. Login with user name: admin and password: admin
 9. Install the demo Kafka cluster. For simplicity we are using the Bitnami Helm Chart Open Source Apache Kafka install. This will install an empty cluster that listens on the node port to make it easier to get data in from outside the cluster.
 
+# Install Apache Kafka and Schema Registry
+
 First create the namespace.
 ```
 kubectl apply -f https://raw.githubusercontent.com/lensesio-workshops/community-edition-minikube/refs/heads/main/bitnami-kafka/bitnami-kafka-namespace.yaml
@@ -93,6 +97,9 @@ Next we need to install the Confluent Schema registry.
 ```
 helm install my-schema-registry bitnami/schema-registry -f https://raw.githubusercontent.com/lensesio-workshops/community-edition-minikube/refs/heads/main/bitnami-kafka/schema-values.yaml -n kafka
 ```
+
+# Install Lenses Agent
+
 10. Next up you will need to install the Lenses Agent. Before we can do that we need to obtain the Agent Key from Lenses HQ. As long as your port forward is still running you can login to HQ at http://127.0.0.1:8080 - user name: admin and password: admin.
 
 This procedure is explained in Lenses Docs: https://docs.lenses.io/latest/deployment/installation/helm/agent#configure-hq-connection-agent-key
