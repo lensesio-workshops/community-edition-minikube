@@ -37,7 +37,7 @@ kubectl create namespace postgres-system
 ```
 2. Create PVC claim for postgres
 ```
-kubectl apply -f https://github.com/lensesio-workshops/community-edition-minikube/blob/main/postgres-setup/minikube-pvc-setup.yaml
+kubectl apply -f https://raw.githubusercontent.com/lensesio-workshops/community-edition-minikube/refs/heads/main/postgres-setup/postgres-pvc.yaml
 ```
 3. Install postgres with the Bitnami Helm chart.
 ```
