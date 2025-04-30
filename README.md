@@ -61,11 +61,40 @@ Inside the pod, connect to PostgreSQL
 PGPASSWORD=changeme psql -h postgres-postgresql -U admin -d postgres
 ```
 Check databases and roles
-```
-\l
+Type: \l (to check the databases were created)
 
-\du
+It should look like this. 
 ```
+postgres=> \l
+                                     List of databases
+     Name     |    Owner     | Encoding |   Collate   |    Ctype    |   Access privileges   
+--------------+--------------+----------+-------------+-------------+-----------------------
+ lenses_agent | lenses_agent | UTF8     | en_US.UTF-8 | en_US.UTF-8 | 
+ lenses_hq    | lenses_hq    | UTF8     | en_US.UTF-8 | en_US.UTF-8 | 
+ postgres     | admin        | UTF8     | en_US.UTF-8 | en_US.UTF-8 | =Tc/admin            +
+              |              |          |             |             | admin=CTc/admin
+ template0    | postgres     | UTF8     | en_US.UTF-8 | en_US.UTF-8 | =c/postgres          +
+              |              |          |             |             | postgres=CTc/postgres
+ template1    | postgres     | UTF8     | en_US.UTF-8 | en_US.UTF-8 | =c/postgres          +
+              |              |          |             |             | postgres=CTc/postgres
+(5 rows)
+```
+
+Type: \du (to see that the users were created)
+
+It should look like this:
+```
+postgres=> \du
+                                     List of roles
+  Role name   |                         Attributes                         | Member of 
+--------------+------------------------------------------------------------+-----------
+ admin        | Create DB                                                  | {}
+ lenses_agent |                                                            | {}
+ lenses_hq    |                                                            | {}
+ postgres     | Superuser, Create role, Create DB, Replication, Bypass RLS | {}
+```
+Finally type: \q to exit the postgres client. 
+
 
 # Install and Connect to Lenses HQ
 
