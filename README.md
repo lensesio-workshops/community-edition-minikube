@@ -48,14 +48,19 @@ helm install postgres bitnami/postgresql \
 You can test to make sure the databases were created correctly by running the following commands:
 
 Start a temporary pod to connect to PostgreSQL
+```
 kubectl run psql-client -n postgres-system --rm -it --image=postgres:14 -- bash
-
+```
 Inside the pod, connect to PostgreSQL
+```
 PGPASSWORD=changeme psql -h postgres-postgresql -U admin -d postgres
-
+```
 Check databases and roles
+```
 \l
+
 \du
+```
 
 4. Create the HQ and Lenses Agent databases in postgres
 ```
