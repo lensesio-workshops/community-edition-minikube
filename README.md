@@ -45,6 +45,11 @@ helm install postgres bitnami/postgresql \
   --namespace postgres-system \
   --values https://raw.githubusercontent.com/lensesio-workshops/community-edition-minikube/refs/heads/main/postgres-setup/postgres-values.yaml
 ```
+4. Create the HQ and Lenses Agent databases in postgres
+```
+kubectl apply -f https://raw.githubusercontent.com/lensesio-workshops/community-edition-minikube/refs/heads/main/postgres-setup/lenses-db-init-job.yaml
+```
+
 You can test to make sure the databases were created correctly by running the following commands:
 
 Start a temporary pod to connect to PostgreSQL
@@ -64,10 +69,7 @@ Check databases and roles
 
 # Install and Connect to Lenses HQ
 
-4. Create the HQ and Lenses Agent databases in postgres
-```
-kubectl apply -f https://raw.githubusercontent.com/lensesio-workshops/community-edition-minikube/refs/heads/main/postgres-setup/lenses-db-init-job.yaml
-```
+
 5. Create lenses namespace.
 ```
 kubectl create namespace lenses
