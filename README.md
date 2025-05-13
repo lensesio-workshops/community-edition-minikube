@@ -24,9 +24,9 @@ minikube start --cpus=8 --memory=16g --disk-size=100GB
 
 *Automated Setup*
 
-If you want to automate most of these instructions I've created a shell script that will do most of the work. You will still need to get your agent key and update the values.yaml for Lenses agent by hand, but all the other tedious setup is automated. 
+If you want to automate most of these instructions I've created a shell script that will do most of the work. There are two setup scripts. One sets up an empty Kafka cluster you can add data to yourself. The other setups up a cluster with demo data. Start with the one with demo data to learn about Lenses. Then switch to the empty one if you'd like to use this setup for local development - or have your own demo data you'd like to work with. 
 
-The script is here: https://github.com/lensesio-workshops/community-edition-minikube/blob/main/setupScript/setup_lenses_minikube.sh
+The scripts are here: https://github.com/lensesio-workshops/community-edition-minikube/tree/main/SetupScripts
 
 *Helm Setup*
 
