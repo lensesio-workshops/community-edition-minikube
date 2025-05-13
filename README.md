@@ -1,7 +1,13 @@
+**Minikube Setup Instructions**
 
 Pre-req's 
 
-Minikube installed
+You will need to have Minikube installed with a minimum of 12 gigs of RAM and 6 CPUs. 
+
+You will need to have Helm installed. 
+
+
+*Starting Minikube*
 
 Minikube will need to be run with this command at a minimum:
 ```
@@ -16,12 +22,13 @@ You may also consider increaseing the size of disk allocated to your VM if you a
 minikube start --cpus=8 --memory=16g --disk-size=100GB
 ```
 
+*Automated Setup*
+
 If you want to automate most of these instructions I've created a shell script that will do most of the work. You will still need to get your agent key and update the values.yaml for Lenses agent by hand, but all the other tedious setup is automated. 
 
 The script is here: https://github.com/lensesio-workshops/community-edition-minikube/blob/main/setupScript/setup_lenses_minikube.sh
 
-
-Helm installed
+*Helm Setup*
 
 You need to add the following Helm repositores:
 ```
